@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Control System</title>
+</head>
+
+<body>
+    <div class="form-group">
+        <h3>Номер рейса</h3>
+        <label for="flight">Введите номер рейса:</label>
+        <input type="text" class="form-control" id="flight">
+    </div>
+    <button onclick="report()" class="btn btn-primary">Получить отчет по рейсу</button>
+
+    <div id='flight-details'></div>
+    <script src="fcs.js"></script>
+</body>
+
+</html>
