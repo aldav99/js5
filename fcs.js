@@ -301,7 +301,8 @@ function flightDetails(flightName) {
     let elem = document.getElementById('flight-details');
 
     if (!flightName) {
-        return elem.innerText = "This flight not found";
+        errorText = document.createTextNode("This flight not found");
+        return elem.appendChild(errorText);
     }
 
     let currentTime = new Date();
@@ -309,27 +310,48 @@ function flightDetails(flightName) {
     let registrationStarts = flightName.registrationStarts;
     let registartionEnds = flightName.registartionEnds;
 
+    let textFlight = `Flight: ${flightName.name}`;
+    let textSeats = `Seats: ${flightName.seats}`;
+    let textBusinessSeats = `BusinessSeats: ${flightName.businessSeats}`;
+    let textRegistrationStarts = `registrationStarts: ${registrationStarts}`;
+    let textRegistartionEnds = `registartionEnds: ${registartionEnds}`;
+    let resultArr = [textFlight, textSeats, textBusinessSeats, textRegistrationStarts, textRegistartionEnds, 'TicketsInfo:'];
 
-    let resultStrFlight = `Flight: ${flightName.name} \n Seats: ${flightName.seats} \n BusinessSeats: ${flightName.businessSeats} \n registrationStarts: ${registrationStarts} \n registartionEnds: ${registartionEnds} \n TicketsInfo: \n`
+
+    createResult(elem, resultArr);
 
     let tickets = flightName.tickets;
 
-    elem.innerText = resultStrFlight + resultStrTickets(tickets);
+    ticketSResult(elem, tickets);
 }
 
-function ticketToStr(ticket) {
-    return `№ ticket: ${ticket.id} \n Seat: ${ticket.seat} \n fullName: ${ticket.fullName} \n Registration: ${(ticket.registrationTime != null)} \n`
+function createResult(elem, arrOfString) {
+    arrOfString.forEach(function (entry) {
+        div = document.createElement('div');
+        div.textContent = entry;
+        elem.appendChild(div);
+
+    });
+    return elem;
+}
+
+function ticketResult(elem, ticket) {
+    let textNumber = `№ ticket: ${ticket.id}`;
+    let textSeat = `Seat: ${ticket.seat}`;
+    let textFullName = `fullName: ${ticket.fullName}`;
+    let textRegistration = `Registration: ${(ticket.registrationTime != null)}`;
+    let resultArr = [textNumber, textSeat, textFullName, textRegistration];
+
+    createResult(elem, resultArr);
+
 }
 
 
-function resultStrTickets(tickets) {
-    let result = "";
+function ticketSResult(elem, tickets) {
     for (let ticket of tickets) {
-        result = result + '\n' + ticketToStr(ticket);
+        ticketResult(elem, ticket);
     }
-    return result;
 }
-
 
 function report() {
     let flightName = document.getElementById('flight').value;
